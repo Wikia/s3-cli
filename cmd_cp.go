@@ -2,11 +2,12 @@ package main
 
 import (
 	"fmt"
-	"github.com/aws/aws-sdk-go/service/s3"
-	"github.com/urfave/cli"
 	"os"
 	"path/filepath"
 	"strings"
+
+	"github.com/aws/aws-sdk-go/service/s3"
+	"github.com/urfave/cli"
 )
 
 // One command to do it all, since get/put/cp should be able to copy from anywhere to anywhere
