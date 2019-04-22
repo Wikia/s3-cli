@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
+
 	"github.com/urfave/cli"
 )
 
@@ -18,7 +19,7 @@ func main() {
 	cliapp := cli.NewApp()
 	cliapp.Name = "s3-cli"
 	// cliapp.Usage = ""
-	cliapp.Version = "0.2.0"
+	cliapp.Version = "0.2.1"
 
 	cli.VersionFlag = cli.BoolFlag{
 		Name:  "version, V",
@@ -41,7 +42,11 @@ func main() {
 			Usage:  "AWS Secret Key `SECRET_KEY`",
 			EnvVar: "AWS_SECRET_ACCESS_KEY,AWS_SECRET_KEY",
 		},
-
+		cli.StringFlag{
+			Name:   "storage-class",
+			Usage:  "Storage class (default: STANDARD)",
+			EnvVar: "AWS_S3_STORAGE_CLASS",
+		},
 		cli.BoolFlag{
 			Name:  "recursive,r",
 			Usage: "Recursive upload, download or removal",
@@ -54,7 +59,6 @@ func main() {
 			Name:  "skip-existing",
 			Usage: "Skip over files that exist at the destination (only for [get] and [sync] commands).",
 		},
-
 		cli.BoolFlag{
 			Name:  "verbose,v",
 			Usage: "Verbose output (e.g. debugging)",

@@ -16,8 +16,9 @@ import (
 // Command lines are by default the snake case version of the the struct names with "-" instead of "_"
 //
 type Config struct {
-	AccessKey string `ini:"access_key"`
-	SecretKey string `ini:"secret_key"`
+	AccessKey    string `ini:"access_key"`
+	SecretKey    string `ini:"secret_key"`
+	StorageClass string `ini:"storage-class"`
 
 	CheckMD5     bool `ini:"check_md5" cli:"check-md5"`
 	DryRun       bool `ini:"dry_run"`
