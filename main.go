@@ -19,7 +19,7 @@ func main() {
 	cliapp := cli.NewApp()
 	cliapp.Name = "s3-cli"
 	// cliapp.Usage = ""
-	cliapp.Version = "0.2.1"
+	cliapp.Version = "0.2.2"
 
 	cli.VersionFlag = cli.BoolFlag{
 		Name:  "version, V",
@@ -46,6 +46,18 @@ func main() {
 			Name:   "storage-class",
 			Usage:  "Storage class (default: STANDARD)",
 			EnvVar: "AWS_S3_STORAGE_CLASS",
+		},
+		cli.IntFlag{
+			Name:   "concurrency",
+			Usage:  "Concurrency `NUM`",
+			EnvVar: "AWS_S3_CONCURRENCY",
+			Value:  5,
+		},
+		cli.IntFlag{
+			Name:   "part-size",
+			Usage:  "Part size `NUM` in mb",
+			EnvVar: "AWS_S3_PARTSIZE",
+			Value:  5,
 		},
 		cli.BoolFlag{
 			Name:  "recursive,r",
