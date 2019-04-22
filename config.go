@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"path"
 	"reflect"
 	"strings"
@@ -19,6 +18,9 @@ type Config struct {
 	AccessKey    string `ini:"access_key"`
 	SecretKey    string `ini:"secret_key"`
 	StorageClass string `ini:"storage-class"`
+
+	Concurrency int   `ini:"concurrency"`
+	PartSize    int64 `ini:"part-size"`
 
 	CheckMD5     bool `ini:"check_md5" cli:"check-md5"`
 	DryRun       bool `ini:"dry_run"`
@@ -64,8 +66,6 @@ func NewConfig(c *cli.Context) *Config {
 // Load the config file if possible, but if there is an error return the default configuration file
 func loadConfigFile(path string) *Config {
 	config := &Config{CheckMD5: false}
-
-	fmt.Println("Read config ", path)
 
 	cfg, err := ini.Load(path)
 	if err != nil {

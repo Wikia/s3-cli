@@ -92,8 +92,8 @@ func copyToS3(config *Config, src, dst *FileURI) error {
 	}
 
 	uploader := s3manager.NewUploaderWithClient(svc, func(u *s3manager.Uploader) {
-		u.PartSize = 512 * 1024 * 1024
-		u.Concurrency = 10
+		u.PartSize = config.PartSize * 1024 * 1024
+		u.Concurrency = config.Concurrency
 	})
 
 	fd, err := os.Open(src.Path)
