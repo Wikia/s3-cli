@@ -102,16 +102,14 @@ func copyToS3(config *Config, src, dst *FileURI) error {
 	}
 	defer fd.Close()
 
-	storageClass := "STANDARD"
-	if config.StorageClass != "" {
-		storageClass = config.StorageClass
+	params := &s3manager.UploadInput{
+		Bucket: aws.String(dst.Bucket), // Required
+		Key:    cleanBucketDestPath(src.Path, dst.Path),
+		Body:   fd,
 	}
 
-	params := &s3manager.UploadInput{
-		Bucket:       aws.String(dst.Bucket), // Required
-		Key:          cleanBucketDestPath(src.Path, dst.Path),
-		StorageClass: aws.String(storageClass),
-		Body:         fd,
+	if config.StorageClass != "" {
+		params.StorageClass = aws.String(config.StorageClass)
 	}
 
 	_, err = uploader.Upload(params)

@@ -19,7 +19,7 @@ func main() {
 	cliapp := cli.NewApp()
 	cliapp.Name = "s3-cli"
 	// cliapp.Usage = ""
-	cliapp.Version = "0.2.2"
+	cliapp.Version = "0.2.3"
 
 	cli.VersionFlag = cli.BoolFlag{
 		Name:  "version, V",
@@ -93,9 +93,14 @@ func main() {
 	//  before we get going
 	launch := func(handler CmdHandler) func(*cli.Context) error {
 		return func(c *cli.Context) error {
-			err := handler(NewConfig(c), c)
+			config, err := NewConfig(c)
 			if err != nil {
-				fmt.Println(err.Error())
+				fmt.Println(err)
+				return err
+			}
+			if err := handler(config, c); err != nil {
+				fmt.Println(err)
+				return err
 			}
 			return err
 		}
